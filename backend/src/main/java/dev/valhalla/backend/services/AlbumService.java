@@ -31,4 +31,8 @@ public class AlbumService {
         album.setPictures(plist);
         return save(album);
     }
+
+    public void deleteAlbum(Long id) {
+        albumsRepository.deleteById(id);
+    }
 }
