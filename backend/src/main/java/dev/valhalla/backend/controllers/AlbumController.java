@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/album")
+@RequestMapping("/albums")
 @AllArgsConstructor
 public class AlbumController {
 
@@ -24,10 +24,8 @@ public class AlbumController {
         return ResponseEntity.ok(Optional.of(albumService.getAll()).orElse(Collections.emptyList()));
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE )//TODO: verificar problema
-    public ResponseEntity save(@RequestBody String title, @RequestBody List<MultipartFile> pictures){
-        System.out.println(title);
-        pictures.forEach(p->System.out.println(p.getOriginalFilename()));
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    public ResponseEntity save(@RequestParam("title") String title, @RequestParam("pictures") List<MultipartFile> pictures){
         return ResponseEntity.ok(albumService.createAlbum(title, pictures));
     }
 
