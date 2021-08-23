@@ -49,4 +49,15 @@ public class PictureService {
 
         return pictureList;
     }
+
+    public void delete(List<Picture> pictures) {
+        pictures.forEach(p -> {
+            try {
+                Files.delete(Path.of("uploads" , p.getPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            picturesRepository.deleteById(p.getId());
+        });
+    }
 }

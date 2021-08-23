@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +39,8 @@ public class AlbumService {
     }
 
     public void deleteAlbum(Long id) {
+        Album album = albumRepository.findById(id).get();
+        pictureService.delete(album.getPictures());
         albumRepository.deleteById(id);
     }
 }
