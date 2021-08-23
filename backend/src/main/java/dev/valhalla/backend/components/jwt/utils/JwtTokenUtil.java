@@ -1,4 +1,4 @@
-package dev.valhalla.backend.components.jwt;
+package dev.valhalla.backend.components.jwt.utils;
 
 import java.io.Serializable;
 import java.util.Date;

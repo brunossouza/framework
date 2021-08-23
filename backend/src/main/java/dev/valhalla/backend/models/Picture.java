@@ -2,16 +2,14 @@ package dev.valhalla.backend.models;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -31,5 +29,8 @@ public class Picture extends AbstractEntity{
 
     @Column
     private Long size;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
 }

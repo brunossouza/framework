@@ -21,4 +21,7 @@ public class Comment extends AbstractEntity{
     @JsonIgnore
     private Post post;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+
 }

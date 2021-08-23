@@ -1,4 +1,4 @@
-package dev.valhalla.backend.configs;
+package dev.valhalla.backend.components.jwt.filters;
 
 import java.io.IOException;
 
@@ -7,7 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dev.valhalla.backend.components.jwt.JwtTokenUtil;
+import dev.valhalla.backend.components.jwt.utils.JwtTokenUtil;
+import dev.valhalla.backend.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

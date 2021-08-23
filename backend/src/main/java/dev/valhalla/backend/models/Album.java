@@ -1,5 +1,6 @@
 package dev.valhalla.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,5 +20,8 @@ public class Album extends AbstractEntity{
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Picture> pictures;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
 }

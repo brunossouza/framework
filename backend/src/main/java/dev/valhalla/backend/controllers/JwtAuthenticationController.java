@@ -1,35 +1,31 @@
-package dev.valhalla.backend.configs;
+package dev.valhalla.backend.controllers;
 
+import dev.valhalla.backend.services.JwtUserDetailsService;
 import dev.valhalla.backend.models.JwtRequest;
 import dev.valhalla.backend.models.JwtResponse;
-import dev.valhalla.backend.components.jwt.JwtTokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.valhalla.backend.components.jwt.utils.JwtTokenUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@AllArgsConstructor
+@RequestMapping(value = "/authenticate")
 public class JwtAuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
+    private final JwtUserDetailsService userDetailsService;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -51,4 +47,5 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
 }
