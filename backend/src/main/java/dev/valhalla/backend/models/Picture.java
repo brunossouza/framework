@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @JsonAutoDetect
-public class Pictures extends AbstractEntity{
+public class Picture extends AbstractEntity{
 
     @Column
     @NotNull

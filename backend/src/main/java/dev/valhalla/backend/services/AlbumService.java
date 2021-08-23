@@ -1,8 +1,8 @@
 package dev.valhalla.backend.services;
 
-import dev.valhalla.backend.models.Albums;
-import dev.valhalla.backend.models.Pictures;
-import dev.valhalla.backend.repository.AlbumsRepository;
+import dev.valhalla.backend.models.Album;
+import dev.valhalla.backend.models.Picture;
+import dev.valhalla.backend.repository.AlbumRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,26 +13,26 @@ import java.util.List;
 @AllArgsConstructor
 public class AlbumService {
 
-    private final AlbumsRepository albumsRepository;
-    private final PicturesService picturesService;
+    private final AlbumRepository albumRepository;
+    private final PictureService pictureService;
 
-    public Iterable<Albums> getAll(){
-        return albumsRepository.findAll();
+    public Iterable<Album> getAll(){
+        return albumRepository.findAll();
     }
 
-    public Albums save(Albums album) {
-        return albumsRepository.save(album);
+    public Album save(Album album) {
+        return albumRepository.save(album);
     }
 
-    public Albums createAlbum(String title, List<MultipartFile> pictures) {
-        Albums album = new Albums();
+    public Album createAlbum(String title, List<MultipartFile> pictures) {
+        Album album = new Album();
         album.setTitle(title);
-        List<Pictures> plist = picturesService.createPicturesList(pictures);
+        List<Picture> plist = pictureService.createPicturesList(pictures);
         album.setPictures(plist);
         return save(album);
     }
 
     public void deleteAlbum(Long id) {
-        albumsRepository.deleteById(id);
+        albumRepository.deleteById(id);
     }
 }
