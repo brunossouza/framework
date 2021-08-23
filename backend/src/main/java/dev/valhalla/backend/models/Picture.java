@@ -23,8 +23,7 @@ import java.time.LocalDateTime;
 @JsonAutoDetect
 public class Picture extends AbstractEntity{
 
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private String path;
 
     @Column
