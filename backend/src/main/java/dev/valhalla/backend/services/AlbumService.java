@@ -38,9 +38,15 @@ public class AlbumService {
         return save(album);
     }
 
-    public void deleteAlbum(Long id) {
+    public boolean deleteAlbum(Long id) {
+        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Album album = albumRepository.findById(id).get();
-        pictureService.delete(album.getPictures());
-        albumRepository.deleteById(id);
+        if(user.equals(album.getUser())) {
+            pictureService.delete(album.getPictures());
+            albumRepository.deleteById(id);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

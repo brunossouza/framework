@@ -26,7 +26,6 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllComments(postId));
     }
 
-
     @PostMapping("/{post_id}/comments")
     public ResponseEntity saveComment(@PathVariable("post_id") Long postId, @RequestBody Comment comment){
         comment.setPost(postService.get(postId));

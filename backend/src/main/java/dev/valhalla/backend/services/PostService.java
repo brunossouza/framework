@@ -4,6 +4,7 @@ import dev.valhalla.backend.models.Comment;
 import dev.valhalla.backend.models.Post;
 import dev.valhalla.backend.repository.PostRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final CommentService commentService;
+    private final UserService userService;
 
     public Iterable<Post> getAll(){
         return postRepository.findAll();
@@ -23,6 +25,7 @@ public class PostService {
         return postRepository.getById(postId);
     }
     public Post save(Post post) {
+        post.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         return postRepository.save(post);
     }
 
