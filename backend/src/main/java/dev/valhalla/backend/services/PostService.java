@@ -2,6 +2,7 @@ package dev.valhalla.backend.services;
 
 import dev.valhalla.backend.models.Comment;
 import dev.valhalla.backend.models.Post;
+import dev.valhalla.backend.models.User;
 import dev.valhalla.backend.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,5 +32,17 @@ public class PostService {
 
     public List<Comment> getAllComments(Long postId) {
         return commentService.getAllByPost(postRepository.getById(postId));
+    }
+
+    public boolean delete(Long id) {
+        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Post post = postRepository.findById(id).get();
+        if(post.getUser().equals(user)){
+            commentService.delete(post);
+            postRepository.delete(post);
+            return true;
+        }else {
+            return false;
+        }
     }
 }

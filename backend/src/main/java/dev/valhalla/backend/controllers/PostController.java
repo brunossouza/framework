@@ -5,6 +5,7 @@ import dev.valhalla.backend.models.Post;
 import dev.valhalla.backend.services.CommentService;
 import dev.valhalla.backend.services.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,16 @@ public class PostController {
     @PostMapping
     public ResponseEntity save(@RequestBody Post post){
         return ResponseEntity.ok(postService.save(post));
+    }
+
+
+    @DeleteMapping("/{post_id}")
+    public ResponseEntity delete(@PathVariable("post_id") Long id){
+        if(postService.delete(id)){
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
 }

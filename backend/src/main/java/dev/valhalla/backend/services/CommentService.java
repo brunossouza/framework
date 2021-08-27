@@ -25,4 +25,10 @@ public class CommentService {
         comment.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         return commentRepository.save(comment);
     }
+
+    public void delete(Post post) {
+        commentRepository.findAllByPost(post).forEach(
+                comment -> commentRepository.delete(comment)
+        );
+    }
 }
